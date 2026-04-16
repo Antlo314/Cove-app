@@ -1,18 +1,22 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './page.module.css';
 import Step1Cultural from './components/Step1Cultural';
 import Step2Sociological from './components/Step2Sociological';
 import Step3CurrentLife from './components/Step3CurrentLife';
 import Step4Psychological from './components/Step4Psychological';
+import AlgorithmicMirror from './components/AlgorithmicMirror';
+import VelvetRope from './components/VelvetRope';
 import 'flag-icons/css/flag-icons.min.css';
 
 export default function VettingEngine() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 4;
-  const [complete, setComplete] = useState(false);
+  const [showMirror, setShowMirror] = useState(false);
+  const [underReview, setUnderReview] = useState(false);
 
   const [payload, setPayload] = useState({
     culturalRoots: { countryCode: '', flag: '' },
@@ -22,17 +26,16 @@ export default function VettingEngine() {
   });
 
   const handleNext = () => {
-    if (currentStep < totalSteps) setCurrentStep(v => v + 1);
-    else handleComplete();
+    if (currentStep < totalSteps) {
+        setCurrentStep(v => v + 1);
+    } else {
+        console.log("Vetting Payload Generated:", JSON.stringify(payload, null, 2));
+        setShowMirror(true);
+    }
   };
 
   const handleBack = () => {
     if (currentStep > 1) setCurrentStep(v => v - 1);
-  };
-
-  const handleComplete = () => {
-    console.log("Vetting Payload Generated:", JSON.stringify(payload, null, 2));
-    setComplete(true);
   };
 
   const renderStep = () => {
@@ -45,13 +48,32 @@ export default function VettingEngine() {
     }
   };
 
-  if (complete) {
+  // Variants for Framer Motion sliding transitions
+  const variants = {
+    initial: (direction) => {
+      return { x: direction > 0 ? 50 : -50, opacity: 0 };
+    },
+    animate: { x: 0, opacity: 1, transition: { duration: 0.4, ease: "easeOut" } },
+    exit: (direction) => {
+      return { x: direction < 0 ? 50 : -50, opacity: 0, transition: { duration: 0.3, ease: "easeIn" } };
+    }
+  };
+
+  if (underReview) {
     return (
       <div className={styles.container}>
-        <div className={`${styles.card} glass-panel`} style={{ textAlign: 'center' }}>
-          <h1 style={{ color: 'var(--cove-accent)', fontSize: '2rem', marginBottom: '1rem' }}>Protocol Complete</h1>
-          <p>Your psychological and sociological profile has been fully vetted. Our engine is now calculating your matches.</p>
-          <p style={{ marginTop: '2rem', fontSize: '0.85rem', color: 'rgba(230, 237, 217, 0.5)' }}>Payload output successfully logged to console.</p>
+        <div className={`${styles.card} glass-panel`}>
+          <VelvetRope styles={styles} />
+        </div>
+      </div>
+    );
+  }
+
+  if (showMirror) {
+    return (
+      <div className={styles.container}>
+        <div className={`${styles.card} glass-panel`}>
+          <AlgorithmicMirror payload={payload} setReviewState={setUnderReview} styles={styles} />
         </div>
       </div>
     );
@@ -68,8 +90,20 @@ export default function VettingEngine() {
           <div className={styles.progressText}>Step {currentStep} of {totalSteps}</div>
         </div>
 
-        <div className={styles.stepContent}>
-          {renderStep()}
+        <div className={styles.stepContent} style={{ position: 'relative', overflow: 'hidden' }}>
+          <AnimatePresence mode="wait" custom={1}>
+            <motion.div
+              key={currentStep}
+              custom={1}
+              variants={variants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              style={{ position: 'absolute', width: '100%' }}
+            >
+              {renderStep()}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         <div className={styles.controls}>
@@ -77,7 +111,7 @@ export default function VettingEngine() {
             Back
           </button>
           <button className="btn-primary" onClick={handleNext}>
-            {currentStep === totalSteps ? 'Finalize Protocol' : 'Next Step'}
+            {currentStep === totalSteps ? 'Run Protocol' : 'Next Step'}
           </button>
         </div>
       </div>

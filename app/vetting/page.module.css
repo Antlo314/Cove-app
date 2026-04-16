@@ -43,8 +43,7 @@
 
 .stepContent {
   flex: 1;
-  min-height: 300px;
-  animation: fadeIn 0.5s ease-out;
+  min-height: 380px;
 }
 
 .controls {
@@ -104,11 +103,6 @@
   border-radius: 4px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateX(10px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
 .inputGroup {
   display: flex;
   flex-direction: column;
@@ -140,4 +134,66 @@
 .inputGroup select:focus, .inputGroup input:focus {
   outline: none;
   border-color: var(--cove-accent);
+}
+
+/* Phase 2 Additions */
+.mirrorContainer, .velvetRopeContainer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.auraCard {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--cove-accent);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  overflow: hidden;
+}
+
+.auraGlow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(10, 77, 104, 0.3) 0%, transparent 60%);
+  animation: breathe 8s ease-in-out infinite;
+  z-index: 1;
+}
+
+.mirrorStat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.mirrorStat:last-child {
+  border-bottom: none;
+}
+
+.statLabel {
+  font-size: 0.85rem;
+  color: rgba(230, 237, 217, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statValue {
+  font-weight: 600;
+  color: var(--cove-accent);
+  font-family: var(--font-sans);
+}
+
+@keyframes breathe {
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 0.5; }
 }
