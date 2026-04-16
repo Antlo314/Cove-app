@@ -7,6 +7,8 @@ import Step1Cultural from './components/Step1Cultural';
 import Step2Sociological from './components/Step2Sociological';
 import Step3CurrentLife from './components/Step3CurrentLife';
 import Step4Psychological from './components/Step4Psychological';
+import Step5Aesthetics from './components/Step5Aesthetics';
+import Step6CoreValues from './components/Step6CoreValues';
 import AlgorithmicMirror from './components/AlgorithmicMirror';
 import VelvetRope from './components/VelvetRope';
 import 'flag-icons/css/flag-icons.min.css';
@@ -14,7 +16,7 @@ import 'flag-icons/css/flag-icons.min.css';
 export default function VettingEngine() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 4;
+  const totalSteps = 6;
   const [showMirror, setShowMirror] = useState(false);
   const [underReview, setUnderReview] = useState(false);
 
@@ -22,7 +24,9 @@ export default function VettingEngine() {
     culturalRoots: { countryCode: '', flag: '' },
     sociological: { upbringingEnv: '', parentsMaritalStatus: '', religion: '', familyStructure: '' },
     currentLife: { previousMarriages: 0, currentChildren: 0, futureChildrenDesired: false, lifestyle: '' },
-    psychological: { attachmentStyle: '', loveLanguage: '', conflictArchetype: '' }
+    psychological: { attachmentStyle: '', loveLanguage: '', conflictArchetype: '' },
+    aesthetics: { vibe: '' },
+    coreValues: { finances: '', worldview: '', ethics: '' }
   });
 
   const handleNext = () => {
@@ -44,11 +48,12 @@ export default function VettingEngine() {
       case 2: return <Step2Sociological data={payload.sociological} updateData={(d) => setPayload({...payload, sociological: {...payload.sociological, ...d}})} styles={styles} />;
       case 3: return <Step3CurrentLife data={payload.currentLife} updateData={(d) => setPayload({...payload, currentLife: {...payload.currentLife, ...d}})} styles={styles} />;
       case 4: return <Step4Psychological data={payload.psychological} updateData={(d) => setPayload({...payload, psychological: {...payload.psychological, ...d}})} styles={styles} />;
+      case 5: return <Step5Aesthetics data={payload.aesthetics} updateData={(d) => setPayload({...payload, aesthetics: {...payload.aesthetics, ...d}})} styles={styles} />;
+      case 6: return <Step6CoreValues data={payload.coreValues} updateData={(d) => setPayload({...payload, coreValues: {...payload.coreValues, ...d}})} styles={styles} />;
       default: return null;
     }
   };
 
-  // Variants for Framer Motion sliding transitions
   const variants = {
     initial: (direction) => {
       return { x: direction > 0 ? 50 : -50, opacity: 0 };
@@ -87,7 +92,7 @@ export default function VettingEngine() {
           <div className={styles.progressBar}>
             <div className={styles.progressFill} style={{ width: `${(currentStep / totalSteps) * 100}%` }}></div>
           </div>
-          <div className={styles.progressText}>Step {currentStep} of {totalSteps}</div>
+          <div className={styles.progressText}>Protocol Step {currentStep} of {totalSteps}</div>
         </div>
 
         <div className={styles.stepContent} style={{ position: 'relative', overflow: 'hidden' }}>
@@ -111,7 +116,7 @@ export default function VettingEngine() {
             Back
           </button>
           <button className="btn-primary" onClick={handleNext}>
-            {currentStep === totalSteps ? 'Run Protocol' : 'Next Step'}
+            {currentStep === totalSteps ? 'Finalize Protocol' : 'Next Step'}
           </button>
         </div>
       </div>

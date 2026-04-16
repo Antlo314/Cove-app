@@ -197,3 +197,44 @@
   50% { transform: scale(1.1); opacity: 0.8; }
   100% { transform: scale(1); opacity: 0.5; }
 }
+
+/* Phase 3 Aesthetic Grid */
+.aestheticGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.aestheticCard {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--cove-border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.aestheticCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--cove-secondary);
+}
+
+.aestheticCard.active {
+  border-color: var(--cove-accent);
+  box-shadow: 0 0 20px rgba(242, 227, 198, 0.2);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 70%;
+}
+
+.aestheticLabel {
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
