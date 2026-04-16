@@ -1,66 +1,61 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from 'next/link';
+import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <section className={styles.heroSection}>
+        <div className={styles.heroContent}>
+          <h1 className={styles.title}>Find Your Root.<br/>Find Your Reason.</h1>
+          <p className={styles.subtitle}>
+            Reject the superficial swipe. Cove is the highly-vetted matchmaking ecosystem for the Caribbean diaspora—engineered for deep psychological alignment and cultural connection.
           </p>
+          
+          <div className={styles.ctaGroup}>
+            <Link href="/auth" className="btn-primary">
+              Apply for Cove
+            </Link>
+            <Link href="#about" className="btn-outline">
+              The Protocol
+            </Link>
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section id="about" className={styles.valueProps}>
+        <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', textAlign: 'center' }}>
+          Real Compatibility, Engineered.
+        </h2>
+        <p style={{ maxWidth: '600px', textAlign: 'center', color: 'rgba(230, 237, 217, 0.7)', lineHeight: '1.6' }}>
+          We don't do blind dates. The Cove Vetting Engine analyzes deep psychological frameworks—Attachment Styles, Love Languages, and Sociological upbringing.
+        </p>
+
+        <div className={styles.grid}>
+          <div className={`${styles.card} glass-panel`}>
+            <div className={styles.cardIcon}>🌴</div>
+            <h3 className={styles.cardTitle}>Cultural Roots</h3>
+            <p className={styles.cardText}>
+              Connection begins at home. We match based on shared Caribbean heritage, upbringing, and sociological values.
+            </p>
+          </div>
+
+          <div className={`${styles.card} glass-panel`}>
+            <div className={styles.cardIcon}>🧠</div>
+            <h3 className={styles.cardTitle}>Psychological Vetting</h3>
+            <p className={styles.cardText}>
+              Our engine cross-references Attachment Styles and Conflict Resolution archetypes to ensure long-term harmony.
+            </p>
+          </div>
+
+          <div className={`${styles.card} glass-panel`}>
+            <div className={styles.cardIcon}>💍</div>
+            <h3 className={styles.cardTitle}>Serious Intent</h3>
+            <p className={styles.cardText}>
+              Built exclusively for those seeking marriage and legacy building. The application process weeds out the uncommitted.
+            </p>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+    </>
   );
 }
